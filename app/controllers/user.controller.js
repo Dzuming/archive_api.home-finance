@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const config = require('../../config/config').get(process.env.NODE_ENV);
+const config = require('../../config/config')
 const fs = require('fs');
 exports.index = function(req, res) {
     User.find({}, (err, User) => {
@@ -48,7 +48,6 @@ exports.authenticate = function(req, res) {
             if (user.Password != hashedPassword) {
                 res.status(500).json({ success: false, message: 'Authentication failed. Wrong password.' });
             } else {
-
                 // if user is found and password is right
                 // create a token
                 var token = jwt.sign({ user: user }, config.secret, { expiresIn: '1h' });

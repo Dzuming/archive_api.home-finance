@@ -4,7 +4,8 @@ const spending = mongoose.model('spending');
 const profit = mongoose.model('profit');
 // exports.create = function(req, res) {
 //     var johndoe = new Budget({
-//         Overall: 10000
+//         Overall: 10000,
+//         DateCreated: Date.now()
 //     });
 //     johndoe.save(function(err) { if (err) console.log('Error on save!') });
 // }
