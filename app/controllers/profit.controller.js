@@ -31,20 +31,20 @@ exports.create = function(req, res) {
         .sort({ 'DateCreated': 'desc' })
         .exec((err, profit) => profit.filter(element => {
             if (element.User) {
-                element.User.Email === req.params.Email
+                element.User.id === req.params.id
             }
         }))
 }
 exports.index = function(req, res) {
     profit.find({})
         .populate("Category")
-        .populate("User", "Email")
+        .populate("User", "id")
         .sort({ 'DateCreated': 'desc' })
         .exec((err, profit) => {
             res.status(200).json(profit.filter(element => {
                 if (element.User) {
                     return element.DateCreated.toISOString().split('T')[0] //YYYY-MM-DD 
-                        .includes(req.params.DateCreated.toString()) && element.User.Email === req.params.Email
+                        .includes(req.params.DateCreated.toString()) && element.User.id === req.params.id
                 }
             }))
         })
