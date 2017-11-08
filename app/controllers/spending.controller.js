@@ -6,8 +6,8 @@ const Budget = mongoose.model('Budget');
 exports.create = function(req, res, next) {
     let newSpending = new spending({
         Category: req.body.categoryId,
-        Description: req.body.Description,
-        Spending: req.body.Spending,
+        Description: req.body.description,
+        Spending: req.body.spending,
         User: req.body.userId,
         DateCreated: Date.now()
     })
