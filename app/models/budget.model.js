@@ -9,7 +9,7 @@ const BudgetSchema = new Schema({
 });
 BudgetSchema.statics.createBudget = function(newBudget) {
     newBudget.save((error => {
-        if (error) res.status(500).send(error);
+        //if (error) res.status(500).send(error);
     }))
 };
 mongoose.model('Budget', BudgetSchema);
