@@ -11,9 +11,14 @@ exports.create = function(req, res, next) {
         User: req.body.userId,
         DateCreated: Date.now()
     })
+    
     newSpending.save((error => {
-        if (error) res.status(500).send(error);
-        res.status(201).json({
+        
+        if (error) {
+            console.log(error)
+            return res.status(500).send(error);
+        } 
+        return res.status(201).json({
             message: 'Question created successfully'
         });
     }))
