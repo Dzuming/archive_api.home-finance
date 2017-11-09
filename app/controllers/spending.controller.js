@@ -9,11 +9,9 @@ exports.create = function (req, res, next) {
         Description: req.body.description,
         Spending: req.body.spending,
         User: req.body.userId,
-        DateCreated: Date.now()
+        DateCreated: req.body.dateCreated
     })
-
     newSpending.save((error => {
-
         if (error) {
             return res.status(500).send(error);
         }
