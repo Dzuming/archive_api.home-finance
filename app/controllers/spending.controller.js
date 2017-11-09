@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const spending = mongoose.model('spending');
 const Budget = mongoose.model('Budget');
-exports.create = function(req, res, next) {
+exports.create = function (req, res, next) {
     let newSpending = new spending({
         Category: req.body.categoryId,
         Description: req.body.description,
@@ -11,28 +11,27 @@ exports.create = function(req, res, next) {
         User: req.body.userId,
         DateCreated: Date.now()
     })
-    
+
     newSpending.save((error => {
-        
+
         if (error) {
-            console.log(error)
             return res.status(500).send(error);
-        } 
+        }
         return res.status(201).json({
             message: 'Question created successfully'
         });
     }))
     Budget.find({}, (err, Value) => {
-            if (!Value[0].Overall) {
-                Value[0].Overall = 10000;
-            }
-            let newBudget = new Budget({
-                Overall: Value[0].Overall - req.body.Spending,
-                DateCreated: Date.now(),
-                User: req.body.userId
-            })
-            Budget.createBudget(newBudget)
+        if (!Value[0].Overall) {
+            Value[0].Overall = 10000;
+        }
+        let newBudget = new Budget({
+            Overall: Value[0].Overall - req.body.Spending,
+            DateCreated: Date.now(),
+            User: req.body.userId
         })
+        Budget.createBudget(newBudget)
+    })
         .sort({ 'DateCreated': 'desc' })
         .exec((err, spending) => spending.filter(element => {
             if (element.User) {
@@ -40,7 +39,7 @@ exports.create = function(req, res, next) {
             }
         }))
 }
-exports.index = function(req, res) {
+exports.index = function (req, res) {
     spending.find({})
         .populate("Category")
         .populate("User", "id")
@@ -54,7 +53,7 @@ exports.index = function(req, res) {
             }))
         })
 }
-exports.period = function(req, res) {
+exports.period = function (req, res) {
     spending.find({})
         .select('DateCreated')
         .exec((err, spending) => {
